@@ -9,30 +9,9 @@ use Illuminate\Support\Str;
 
 class ProdutoController extends Controller
 {
-    public function index()
+    public function GetProdutos()
     {
         $produtos = Produto::all();
         return response()->json($produtos);
-    }
-
-    public function store(Request $request)
-    {
-        $itensPedido = $request->input('itens');
-
-        $codigoPedido = Str::uuid()->toString();
-        foreach ($itensPedido as $item) {
-            $produtoId = $item['produto_id'];
-            $quantidade = $item['quantidade'];
-
-            $pedido = Pedido::create([
-                'produto_id' => $produtoId,
-                'codigo_pedido' => $codigoPedido,
-                'quantidade' => $quantidade,
-            ]);
-
-            // Faça qualquer lógica adicional necessária para cada pedido criado
-        }
-
-        return response()->json($pedido);
     }
 }
